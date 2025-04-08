@@ -3,7 +3,6 @@ SOURCES  = $(wildcard *.c)
 HEADERS  = $(wildcard *.h)
 OBJECTS  = $(SOURCES:%.c=build/%.o)
 FORMATS  = $(SOURCES:%.c=.format/%.c.fmt) $(HEADERS:%.h=.format/%.h.fmt)
-AUX      = test_files test_scripts test_repo.sh .format workloads
 
 CC       = clang
 FORMAT   = clang-format
@@ -13,10 +12,10 @@ CFLAGS   = -Wall -Wpedantic -Werror -Wextra -O3 -g #-DDEBUG
 
 all: $(EXECBIN)
 
-$(EXECBIN): $(OBJECTS) asgn5_helper_funcs.a
+$(EXECBIN): $(OBJECTS)
 	$(CC) -o $@ $^ -pthread
 
-# $(EXECBIN): httpproxy.o asgn5_helper_funcs.a
+# $(EXECBIN): httpproxy.o
 # 	$(CC) -o $@ $^ -pthread
 
 build/%.o : %.c $(HEADERS)
@@ -36,8 +35,6 @@ cache: cache.o
 
 nuke: clean
 	rm -rf .format
-purge: clean
-	rm -rf $(AUX)
 
 format: $(FORMATS)
 
