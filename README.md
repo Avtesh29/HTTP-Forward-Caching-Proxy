@@ -13,6 +13,14 @@ An HTTP forward proxy receives requests from clients and forwards them to remote
 
 ---
 
+## 💡 Technologies and Concepts
+
+**Technologies:** `C`, `Socket Programming`, `POSIX Threads`, `GCC`/`Clang`, `Makefile`, `File Descriptors`, `HTTP/1.1`, `getopt`, `regex.h`, `Dynamic Memory Allocation`
+
+**Concepts:** `Forward Proxying`, `HTTP Parsing`, `Header Rewriting`, `In-Memory Caching`, `FIFO/LRU Eviction`, `Cache Limits`, `Response Injection`, `Error Handling`, `CLI Validation`
+
+---
+
 ## 🚀 Features
 
 - Accepts and forwards well-formed `GET` requests
@@ -23,6 +31,18 @@ An HTTP forward proxy receives requests from clients and forwards them to remote
 - Handles cache eviction when full
 - Proper error reporting and argument validation
 - Clean shutdown and minimal memory usage
+
+---
+
+## 🧠 How It Works
+1. Accepts a client connection
+2. Parses the request (expects format: GET http:<area>//host:port/uri HTTP/1.1\r\n\r\n)
+4. Checks cache:
+   - If hit: returns cached response with Cached: True header
+   - If miss: connects to destination server, forwards request, stores and returns response
+5. Eviction:
+   - If cache is full, evicts according to FIFO or LRU
+6. Returns the response to the client
 
 ---
 
@@ -81,18 +101,6 @@ Passing n = 0 disables caching altogether.
 ./httpproxy 1234 FIFO 3
 ```
 This runs the proxy on port 1234 using a FIFO cache of size 3.
-
----
-
-## 🧠 How It Works
-1. Accepts a client connection
-2. Parses the request (expects format: GET http:<area>//host:port/uri HTTP/1.1\r\n\r\n)
-4. Checks cache:
-   - If hit: returns cached response with Cached: True header
-   - If miss: connects to destination server, forwards request, stores and returns response
-5. Eviction:
-   - If cache is full, evicts according to FIFO or LRU
-6. Returns the response to the client
 
 ---
 
