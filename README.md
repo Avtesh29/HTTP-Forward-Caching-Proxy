@@ -1,6 +1,6 @@
 # HTTP Forward Caching Proxy
 
-This project is an HTTP forward proxy written in C. The proxy sits between a client and an origin server, forwarding HTTP `GET` requests and caching server responses using configurable cache replacement policies.
+This project is an HTTP forward proxy written in C. The proxy sits between a client and an origin server, forwarding HTTP `GET` requests and caching server responses using configurable cache replacement policies. Builds upon [Multithreaded Server](https://github.com/Avtesh29/Multithreaded-Server).
 
 ---
 
